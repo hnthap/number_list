@@ -19,8 +19,9 @@ export function getFirstNPrimeNumbers(n) {
   }
   if (n > 0) list.addTail(2);
   if (n > 1) list.addTail(3);
-  for (let i = 6; list.size() !== n; i += 6) {
-    for (let j = -1; j != 3; j += 2) {
+  let okay = true;
+  for (let i = 6; okay; i += 6) {
+    for (let j = -1; j != 3 && okay; j += 2) {
       let isPrime = true;
       const v = i + j;
       const sqrtV = Math.ceil(Math.sqrt(v));
@@ -32,6 +33,7 @@ export function getFirstNPrimeNumbers(n) {
       });
       if (isPrime) {
         list.addTail(v);
+        if (list.size() === n) okay = false;
       }
     }
   }

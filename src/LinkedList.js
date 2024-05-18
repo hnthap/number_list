@@ -1,4 +1,4 @@
-import { UnimplementedError, UnreachableError } from "./errors.js";
+import { UnreachableError } from "./errors.js";
 
 /**
  * A node in a doubly linked list.
@@ -52,7 +52,17 @@ export default class LinkedList {
    * @param {any} value
    */
   addHead(value) {
-    throw new UnimplementedError();
+    if (value === null) {
+      throw new Error(`Invalid value: ${null}`);
+    }
+    if (this.#size === 0) {
+      this.#head = { value, previous: null, next: null };
+      this.#tail = this.#head;
+    } else {
+      this.#head.previous = { value, previous: null, next: this.#head };
+      this.#head = this.#head.previous;
+    }
+    this.#size += 1;
   }
 
   /**
@@ -75,16 +85,38 @@ export default class LinkedList {
 
   /**
    * Remove this linked list's head node.
+   * @returns {{ value: any } | null}
    */
   removeHead() {
-    throw new UnimplementedError();
+    if (this.#head === null) return null;
+    const node = { value: this.#head.value };
+    if (this.#head.next === null) {
+      this.#head = null;
+      this.#tail = null;
+    } else {
+      this.#head = this.#head.next;
+      this.#head.previous = null;
+    }
+    this.#size -= 1;
+    return node;
   }
 
   /**
    * Remove this linked list's tail node.
+   * @returns {{ value: any } | null}
    */
   removeTail() {
-    throw new UnimplementedError();
+    if (this.#tail === null) return null;
+    const node = { value: this.#tail.value };
+    if (this.#tail.previous === null) {
+      this.#head = null;
+      this.#tail = null;
+    } else {
+      this.#tail = this.#tail.previous;
+      this.#tail.next = null;
+    }
+    this.#size -= 1;
+    return node;
   }
 
   /**
@@ -147,9 +179,7 @@ export default class LinkedList {
     let i = 0;
     let stopNow = false;
     for (let it = this.#head; it !== null; it = it.next) {
-      callback(it.value, i, () => {
-        stopNow = true;
-      });
+      callback(it.value, i, () => (stopNow = true));
       if (stopNow) break;
       i += 1;
     }

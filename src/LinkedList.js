@@ -1,24 +1,64 @@
 import { UnimplementedError, UnreachableError } from "./errors.js";
 
-export class LinkedList {
-  #head;
-  #tail;
-  #size;
+/**
+ * A node in a doubly linked list.
+ * @typedef {object} LinkedListNode
+ * @property {any} value
+ * Node's value
+ * @property {LinkedListNode | null} previous
+ * Previous node of this node
+ * @property {LinkedListNode | null} next
+ * Next node of this node
+ */
 
-  constructor() {
-    this.#head = null;
-    this.#tail = null;
-    this.#size = 0;
+/**
+ * Doubly linked list.
+ */
+export default class LinkedList {
+  /** @type {LinkedListNode} */ #head = null;
+  /** @type {LinkedListNode} */ #tail = null;
+  #size = 0;
+
+  /**
+   * Returns this linked list's head with its value as a property if found,
+   * otherwise null.
+   * @returns {{ value: any } | null}
+   */
+  head() {
+    if (this.#head === null) return null;
+    return { value: this.#head.value };
   }
 
+  /**
+   * Returns this linked list's tail with its value as a property if found,
+   * otherwise null.
+   * @returns {{ value: any } | null}
+   */
+  tail() {
+    if (this.#tail === null) return null;
+    return { value: this.#tail.value };
+  }
+
+  /**
+   * Returns this linked list's size
+   * @returns {number}
+   */
   size() {
     return this.#size;
   }
 
+  /**
+   * Add new node to this linked list's head.
+   * @param {any} value
+   */
   addHead(value) {
     throw new UnimplementedError();
   }
 
+  /**
+   * Add new node to this linked list's tail.
+   * @param {any} value
+   */
   addTail(value) {
     if (value === null) {
       throw new Error(`Invalid value: ${null}`);
@@ -33,16 +73,22 @@ export class LinkedList {
     this.#size += 1;
   }
 
+  /**
+   * Remove this linked list's head node.
+   */
   removeHead() {
     throw new UnimplementedError();
   }
 
+  /**
+   * Remove this linked list's tail node.
+   */
   removeTail() {
     throw new UnimplementedError();
   }
 
   /**
-   *
+   * Check if the specified value exists in this linked list.
    * @param {any} value
    * @returns {boolean}
    */
@@ -54,7 +100,11 @@ export class LinkedList {
   }
 
   /**
+   * Returns a value at specified index as if this linked list
+   * was an array, with the element at head has index 0 and so on.
    *
+   * If the index is invalid (not a number, or out of range, or not an
+   * integer), throw an error.
    * @param {number} index
    * @returns
    */
@@ -86,7 +136,7 @@ export class LinkedList {
   }
 
   /**
-   *
+   * Iterate over this linked list element-wise from head to tail.
    * @param {(
    *  value: any,
    *  index: number,
@@ -105,6 +155,10 @@ export class LinkedList {
     }
   }
 
+  /**
+   * Converts this linked list, from head to tail, to an array.
+   * @returns {any[]}
+   */
   toArray() {
     const array = new Array(this.#size);
     let i = 0;
@@ -116,12 +170,12 @@ export class LinkedList {
   }
 
   /**
-   *
+   * Check if two linked lists have the same elements, from head to tail.
    * @param {LinkedList} list1
    * @param {LinkedList} list2
    * @returns {boolean}
    */
-  static isEquals(list1, list2) {
+  static equals(list1, list2) {
     if (list1.#size !== list2.#size) return false;
     let it1 = list1.#head;
     let it2 = list2.#head;
@@ -133,6 +187,11 @@ export class LinkedList {
     return true;
   }
 
+  /**
+   * Initializes new linked list from specified array's values.
+   * @param {any[]} array
+   * @returns {LinkedList}
+   */
   static fromArray(array) {
     const list = new LinkedList();
     for (const value of array) {

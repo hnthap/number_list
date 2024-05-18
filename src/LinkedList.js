@@ -1,4 +1,4 @@
-import { UnimplementedError, UnreachableError } from "./errors.js";
+import { UnreachableError } from "./errors.js";
 
 /**
  * A node in a doubly linked list.

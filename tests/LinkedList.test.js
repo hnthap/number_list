@@ -10,6 +10,17 @@ describe("linked list", () => {
     deepStrictEqual(list.tail(), null);
   });
 
+  it("add head", () => {
+    const list = new LinkedList();
+    let length = 1;
+    for (const value of [100, "Earth", false, true, "🥶🥶🥶"]) {
+      list.addHead(value);
+      deepStrictEqual(list.size(), length);
+      deepStrictEqual(list.head().value, value);
+      length += 1;
+    }
+  });
+
   it("add tail", () => {
     const list = new LinkedList();
     let length = 1;
@@ -19,6 +30,34 @@ describe("linked list", () => {
       deepStrictEqual(list.tail().value, value);
       length += 1;
     }
+  });
+
+  it("remove head", () => {
+    const array = [100, "Earth", false, true, "🥶🥶🥶"];
+    const list = LinkedList.fromArray(array);
+    let i = 0;
+    let length = list.size();
+    while (list.size() !== 0) {
+      deepStrictEqual(list.removeHead().value, array[i]);
+      length -= 1;
+      deepStrictEqual(list.size(), length);
+      i += 1;
+    }
+    deepStrictEqual(list.removeHead(), null);
+  });
+
+  it("remove tail", () => {
+    const array = [100, "Earth", false, true, "🥶🥶🥶"];
+    const list = LinkedList.fromArray(array);
+    let i = list.size() - 1;
+    let length = list.size();
+    while (list.size() !== 0) {
+      deepStrictEqual(list.removeTail().value, array[i]);
+      length -= 1;
+      deepStrictEqual(list.size(), length);
+      i -= 1;
+    }
+    deepStrictEqual(list.removeTail(), null);
   });
 
   it("get by index", () => {

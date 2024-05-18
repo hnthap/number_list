@@ -147,9 +147,7 @@ export default class LinkedList {
     let i = 0;
     let stopNow = false;
     for (let it = this.#head; it !== null; it = it.next) {
-      callback(it.value, i, () => {
-        stopNow = true;
-      });
+      callback(it.value, i, () => stopNow = true);
       if (stopNow) break;
       i += 1;
     }

@@ -39,6 +39,6 @@ describe("linked list", () => {
     for (let i = 0; i < array.length; i += 1) {
       deepStrictEqual(array[i], anotherArray[i])
     }
-    deepStrictEqual(LinkedList.isEquals(list, anotherList), true);
+    deepStrictEqual(LinkedList.equals(list, anotherList), true);
   })
 });

@@ -1,0 +1,14 @@
+{
+  "name": "number_list",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node src",
+    "test": "node --test tests"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "main": "src/index.js",
+  "description": ""
+}

@@ -1,10 +1,18 @@
 import { UnimplementedError, UnreachableError } from "./errors.js";
 
 export class LinkedList {
+  #head;
+  #tail;
+  #size;
+
   constructor() {
-    this.head = null;
-    this.tail = null;
-    this.size = 0;
+    this.#head = null;
+    this.#tail = null;
+    this.#size = 0;
+  }
+
+  size() {
+    return this.#size;
   }
 
   addHead(value) {
@@ -15,14 +23,14 @@ export class LinkedList {
     if (value === null) {
       throw new Error(`Invalid value: ${null}`);
     }
-    if (this.size === 0) {
-      this.head = { value, previous: null, next: null };
-      this.tail = this.head;
+    if (this.#size === 0) {
+      this.#head = { value, previous: null, next: null };
+      this.#tail = this.#head;
     } else {
-      this.tail.next = { value, previous: this.tail, next: null };
-      this.tail = this.tail.next;
+      this.#tail.next = { value, previous: this.#tail, next: null };
+      this.#tail = this.#tail.next;
     }
-    this.size += 1;
+    this.#size += 1;
   }
 
   removeHead() {
@@ -34,12 +42,12 @@ export class LinkedList {
   }
 
   /**
-   * 
-   * @param {any} value 
+   *
+   * @param {any} value
    * @returns {boolean}
    */
   has(value) {
-    for (let it = this.head; it != null; it = it.next) {
+    for (let it = this.#head; it != null; it = it.next) {
       if (it.value === value) return true;
     }
     return false;
@@ -54,22 +62,22 @@ export class LinkedList {
     if (
       typeof index !== "number" ||
       index < 0 ||
-      index >= this.size ||
+      index >= this.#size ||
       !Number.isInteger(index)
     ) {
       throw new Error(
-        `Invalid index ${index} in linked list of size ${this.size}`
+        `Invalid index ${index} in linked list of size ${this.#size}`
       );
     }
-    if (2 * index < this.size) {
+    if (2 * index < this.#size) {
       let i = 0;
-      for (let it = this.head; it != null; it = it.next) {
+      for (let it = this.#head; it != null; it = it.next) {
         if (index === i) return it.value;
         i += 1;
       }
     } else {
-      let i = this.size - 1;
-      for (let it = this.tail; it != null; it = it.previous) {
+      let i = this.#size - 1;
+      for (let it = this.#tail; it != null; it = it.previous) {
         if (index === i) return it.value;
         i -= 1;
       }
@@ -77,10 +85,30 @@ export class LinkedList {
     throw new UnreachableError();
   }
 
-  toArray() {
-    const array = new Array(this.size);
+  /**
+   *
+   * @param {(
+   *  value: any,
+   *  index: number,
+   *  stopHere: () => void
+   * ) => void} callback
+   */
+  forEach(callback) {
     let i = 0;
-    for (let it = this.head; it != null; it = it.next) {
+    let stopNow = false;
+    for (let it = this.#head; it !== null; it = it.next) {
+      callback(it.value, i, () => {
+        stopNow = true;
+      });
+      if (stopNow) break;
+      i += 1;
+    }
+  }
+
+  toArray() {
+    const array = new Array(this.#size);
+    let i = 0;
+    for (let it = this.#head; it != null; it = it.next) {
       array[i] = it.value;
       i += 1;
     }
@@ -88,15 +116,15 @@ export class LinkedList {
   }
 
   /**
-   * 
-   * @param {LinkedList} list1 
-   * @param {LinkedList} list2 
+   *
+   * @param {LinkedList} list1
+   * @param {LinkedList} list2
    * @returns {boolean}
    */
   static isEquals(list1, list2) {
-    if (list1.size !== list2.size) return false;
-    let it1 = list1.head;
-    let it2 = list2.head;
+    if (list1.#size !== list2.#size) return false;
+    let it1 = list1.#head;
+    let it2 = list2.#head;
     while (it1 != null) {
       if (it1.value !== it2.value) return false;
       it1 = it1.next;

@@ -5,10 +5,7 @@ import { LinkedList } from "../src/LinkedList.js";
 describe("linked list", () => {
   it("new list must be empty", () => {
     const list = new LinkedList();
-
-    deepStrictEqual(list.size, 0);
-    deepStrictEqual(list.head, null);
-    deepStrictEqual(list.tail, null);
+    deepStrictEqual(list.size(), 0);
   });
 
   it("add tail", () => {
@@ -17,8 +14,8 @@ describe("linked list", () => {
     for (const value of [12, "Hello, World!", true]) {
       list.addTail(value);
       
-      deepStrictEqual(list.size, length);
-      deepStrictEqual(list.tail.value, value);
+      deepStrictEqual(list.size(), length);
+      deepStrictEqual(list.get(list.size() - 1).value, value);
       length += 1;
     }
   });
@@ -27,7 +24,7 @@ describe("linked list", () => {
     const values = [100, "Earth", false, true, "🥶🥶🥶"];
     const list = LinkedList.fromArray(values);
 
-    deepStrictEqual(list.size, values.length);
+    deepStrictEqual(list.size(), values.length);
     for (let i = 0; i < values.length; i += 1) {
       deepStrictEqual(list.get(i), values[i]);
     }

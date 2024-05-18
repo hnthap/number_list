@@ -1,6 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { mkdirIfNotExists } from "./util.js";
-import { LinkedList } from "./LinkedList.js";
+import LinkedList from "./LinkedList.js";
 
 (async () => {
   console.time("list prime numbers");

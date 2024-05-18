@@ -14,10 +14,30 @@ import { UnimplementedError, UnreachableError } from "./errors.js";
 /**
  * Doubly linked list.
  */
-export class LinkedList {
+export default class LinkedList {
   /** @type {LinkedListNode} */ #head = null;
   /** @type {LinkedListNode} */ #tail = null;
   #size = 0;
+
+  /**
+   * Returns this linked list's head with its value as a property if found,
+   * otherwise null.
+   * @returns {{ value: any } | null}
+   */
+  head() {
+    if (this.#head === null) return null;
+    return { value: this.#head.value };
+  }
+
+  /**
+   * Returns this linked list's tail with its value as a property if found,
+   * otherwise null.
+   * @returns {{ value: any } | null}
+   */
+  tail() {
+    if (this.#tail === null) return null;
+    return { value: this.#tail.value };
+  }
 
   /**
    * Returns this linked list's size
@@ -29,7 +49,7 @@ export class LinkedList {
 
   /**
    * Add new node to this linked list's head.
-   * @param {any} value 
+   * @param {any} value
    */
   addHead(value) {
     throw new UnimplementedError();
@@ -37,7 +57,7 @@ export class LinkedList {
 
   /**
    * Add new node to this linked list's tail.
-   * @param {any} value 
+   * @param {any} value
    */
   addTail(value) {
     if (value === null) {
@@ -82,7 +102,7 @@ export class LinkedList {
   /**
    * Returns a value at specified index as if this linked list
    * was an array, with the element at head has index 0 and so on.
-   * 
+   *
    * If the index is invalid (not a number, or out of range, or not an
    * integer), throw an error.
    * @param {number} index
@@ -169,7 +189,7 @@ export class LinkedList {
 
   /**
    * Initializes new linked list from specified array's values.
-   * @param {any[]} array 
+   * @param {any[]} array
    * @returns {LinkedList}
    */
   static fromArray(array) {

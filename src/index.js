@@ -7,7 +7,7 @@ import LinkedList from "./LinkedList.js";
   const list = new LinkedList();
   list.addTail(2);
   list.addTail(3);
-  for (let i = 6; list.size() !== 100_000; i += 6) {
+  for (let i = 6; list.size() !== 10_000; i += 6) {
     for (let j = -1; j != 3; j += 2) {
       let isPrime = true;
       const v = i + j;

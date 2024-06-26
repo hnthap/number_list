@@ -1,5 +1,5 @@
 {
-  "name": "number_list",
+  "name": "prime-number-list",
   "version": "1.0.0",
   "scripts": {
     "start": "node src",
@@ -8,7 +8,7 @@
   "type": "module",
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "main": "src/index.js",
   "description": ""
 }

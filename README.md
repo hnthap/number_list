@@ -1,10 +1,11 @@
-# number_list
+# List of first n prime numbers
 
 ## Usage
 
+To set up,
 ```{bash}
-git clone https://github.com/hnthap/number_list.git
-cd number_list
+git clone https://github.com/hnthap/prime-number-list.git
+cd prime-number-list
 npm install
 ```
 
@@ -18,3 +19,6 @@ To test,
 ```{bash}
 npm test
 ```
+
+## License
+MIT
